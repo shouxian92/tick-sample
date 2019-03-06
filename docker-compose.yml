@@ -1,0 +1,24 @@
+version: '3'
+services:
+  influxdb:
+    image: "influxdb:latest"
+    networks:
+      tik_net:
+  telegraf:
+    image: "telegraf:latest"
+    networks:
+      tik_net:
+    volumes:
+      - ./etc/telegraf:/etc/telegraf
+  kapacitor:
+    image: "kapacitor:latest"
+    networks:
+      tik_net:
+    volumes:
+      - ./etc/kapacitor:/etc/kapacitor
+      - ./var/log/kapacitor:/var/log/kapacitor
+      - ./home/kapacitor:/home/kapacitor
+
+networks:
+  tik_net:
+    driver: bridge
